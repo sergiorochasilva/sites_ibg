@@ -310,6 +310,23 @@
             object-fit: cover;
         }
 
+        .iconPreview {
+            display: grid;
+            place-items: center;
+            background: #fff;
+        }
+
+        .iconPreview img {
+            width: min(55%, 180px);
+            height: auto;
+            max-height: 80%;
+            object-fit: contain;
+        }
+
+        .card--icon-preview .appIcon {
+            display: none;
+        }
+
         @media (max-width: 700px) {
             .grid {
                 grid-auto-rows: auto;
@@ -323,6 +340,10 @@
             .cardBody .preview img {
                 height: 100%;
                 object-fit: contain;
+            }
+
+            .cardBody .iconPreview img {
+                height: auto;
             }
 
             .tint-whatsapp .preview {
@@ -504,8 +525,8 @@
             {
                 title: "YouVersion",
                 host: "bible.com",
-                icon: "https://upload.wikimedia.org/wikipedia/commons/3/3c/YouVersion_Bible_App_Icon.png",
-                url: "https://www.bible.com/organizations/efcf8a05-d04a-4a48-922b-66414b2ffdfb"
+                url: "https://www.bible.com/organizations/efcf8a05-d04a-4a48-922b-66414b2ffdfb",
+                preview: "https://media.licdn.com/dms/image/v2/C4D0BAQHy6dL9HHijNg/company-logo_200_200/company-logo_200_200/0/1652217367377/youversion_logo?e=1772064000&v=beta&t=a1bdl9JwmW_LOIj4LH4Cqs2K8wSvwyQKfMV6z0reUC0"
             },
             {
                 title: "Podcast no Spotify",
@@ -580,7 +601,9 @@
 
             // NORMAL
             const a = document.createElement(card.url ? "a" : "div");
-            a.className = `card ${getSpanClasses(card.span)} ${card.tint ? card.tint : ""}`.trim();
+            const hasPreview = Boolean(card.preview);
+            const useIconPreview = !hasPreview && Boolean(card.icon);
+            a.className = `card ${getSpanClasses(card.span)} ${card.tint ? card.tint : ""} ${useIconPreview ? "card--icon-preview" : ""}`.trim();
 
             if (card.url) {
                 a.href = card.url;
@@ -588,7 +611,7 @@
                 a.rel = "noopener noreferrer";
             }
 
-            const previewHtml = card.preview ? `
+            const previewHtml = hasPreview ? `
         <div class="preview">
           <img
             src="${card.preview}"
@@ -596,7 +619,15 @@
             loading="lazy"
           >
         </div>
-      ` : "";
+      ` : (useIconPreview ? `
+        <div class="preview iconPreview">
+          <img
+            src="${card.icon}"
+            alt=""
+            loading="lazy"
+          >
+        </div>
+      ` : "");
 
             const pillHtml = card.pill ? `
         <div class="ctaRow">
