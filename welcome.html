@@ -635,11 +635,15 @@
         </div>
       ` : "";
 
+            const iconHtml = card.icon ? `
+          <div class="appIcon" aria-hidden="true">
+            <img src="${card.icon}" alt="" loading="lazy">
+          </div>
+        ` : "";
+
             a.innerHTML = `
         <div class="cardTop">
-          <div class="appIcon" aria-hidden="true">
-            ${card.icon ? `<img src="${card.icon}" alt="" loading="lazy">` : ""}
-          </div>
+          ${iconHtml}
           <div class="meta">
             <div class="name">${escapeHtml(card.title)}</div>
             <div class="host">${escapeHtml(card.host || "")}</div>
