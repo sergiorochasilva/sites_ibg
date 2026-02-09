@@ -52,22 +52,23 @@
             min-height: calc(100vh - 68px);
         }
 
+        .left {
+            position: sticky;
+            top: 22px;
+            align-self: start;
+            padding-top: 10px;
+        }
+
         @media (max-width: 980px) {
             .layout {
                 grid-template-columns: 1fr;
             }
 
             .left {
-                position: relative;
+                position: static;
                 top: auto;
+                padding-top: 0;
             }
-        }
-
-        .left {
-            position: sticky;
-            top: 22px;
-            align-self: start;
-            padding-top: 10px;
         }
 
         .brand {
