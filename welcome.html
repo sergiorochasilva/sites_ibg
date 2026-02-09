@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Igreja Batista da Graça</title>
+    <meta name="description" content="Igreja Batista da Graça — links e informações" />
+
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --border: #e5e7eb;
+            --shadow: 0 10px 26px rgba(15, 23, 42, .08);
+            --shadow2: 0 18px 50px rgba(15, 23, 42, .10);
+            --radius: 18px;
+            --radius2: 22px;
+            --max: 1360px;
+            --rowH: 230px;
+            /* ajuste fino */
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        .wrap {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 28px 22px 40px;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 420px 1fr;
+            gap: 28px;
+            align-items: start;
+            min-height: calc(100vh - 68px);
+        }
+
+        @media (max-width: 980px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .left {
+                position: relative;
+                top: auto;
+            }
+        }
+
+        .left {
+            position: sticky;
+            top: 22px;
+            align-self: start;
+            padding-top: 10px;
+        }
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 999px;
+            overflow: hidden;
+            display: grid;
+            place-items: center;
+            background: #fff;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .title {
+            font-size: 44px;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            margin: 0;
+            font-weight: 800;
+        }
+
+        .schedule {
+            margin-top: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 18px;
+            color: var(--muted);
+        }
+
+        .row {
+            display: flex;
+            gap: 8px;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+
+        .row strong {
+            color: var(--text);
+            font-weight: 800;
+        }
+
+        /* ===== Grid (direita): 4 colunas no desktop ===== */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            /* ✅ era 3 */
+            gap: 22px;
+            align-items: stretch;
+            grid-auto-rows: var(--rowH);
+        }
+
+        /* Responsivo: 4 -> 3 -> 2 -> 1 */
+        @media (max-width: 1100px) {
+            .grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 980px) {
+            .grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 560px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            border: 1px solid var(--border);
+            border-radius: var(--radius2);
+            background: #fff;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 120px;
+            text-decoration: none;
+            color: inherit;
+            transition: transform .12s ease, box-shadow .12s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow2);
+        }
+
+        .card:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, .18), var(--shadow2);
+        }
+
+        /* spans */
+        .span-2c {
+            grid-column: span 2;
+        }
+
+        .span-2r {
+            grid-row: span 2;
+        }
+
+        .span-3c {
+            grid-column: span 3;
+        }
+
+        .span-4c {
+            grid-column: span 4;
+        }
+
+        /* opcional */
+
+        @media (max-width: 560px) {
+
+            .span-2c,
+            .span-2r,
+            .span-3c,
+            .span-4c {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+        }
+
+        .cardTop {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 16px 16px 12px;
+        }
+
+        .appIcon {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: #fff;
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+            overflow: hidden;
+        }
+
+        .appIcon img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .meta {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 1;
+        }
+
+        .meta .name {
+            font-weight: 700;
+            font-size: 15px;
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .meta .host {
+            font-size: 13px;
+            color: var(--muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .cardBody {
+            padding: 0 16px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            height: 100%;
+            min-height: 0;
+        }
+
+        .ctaRow {
+            margin-top: auto;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border-radius: 999px;
+            padding: 10px 14px;
+            font-size: 14px;
+            font-weight: 700;
+            border: 1px solid var(--border);
+            background: #f8fafc;
+            color: var(--text);
+            width: fit-content;
+            user-select: none;
+        }
+
+        .preview {
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background: #f8fafc;
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        .preview img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .tint-instagram {
+            background: #fff;
+        }
+
+        .tint-youtube {
+            background: #fff;
+        }
+
+        .tint-whatsapp .preview {
+            background: #f4f1e8;
+        }
+
+        .tint-spotify {
+            background: #eafff1;
+        }
+
+        .tint-youtube .pill {
+            background: #fee2e2;
+            border-color: #fecaca;
+        }
+
+        .tint-instagram .pill {
+            background: #dbeafe;
+            border-color: #bfdbfe;
+        }
+
+        .tint-spotify .pill {
+            background: #dcfce7;
+            border-color: #bbf7d0;
+        }
+
+        .pixBox {
+            padding: 18px 18px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .pixBox .pixTitle {
+            font-weight: 500;
+            color: var(--text);
+            font-size: 18px;
+        }
+
+        .pixBox .pixStrong {
+            font-size: 18px;
+            line-height: 1.4;
+            font-weight: 800;
+        }
+
+        .pixBox .pixStrong span {
+            font-weight: 500;
+        }
+
+        /* FOTO (2 colunas + 2 linhas) */
+        .photoFill {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .photoFill .preview {
+            flex: 1;
+            margin: 14px;
+            height: calc(100% - 28px);
+        }
+
+        .photoFill .preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .foot {
+            margin-top: 22px;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="layout">
+
+            <aside class="left" aria-label="Informações da igreja">
+                <div class="brand">
+                    <div class="logo" title="Igreja Batista da Graça">
+                        <img src="https://storage.googleapis.com/creatorspace-public/users%2Fcm0r1pmyk01bqwn01ts5a93gx%2FG3x9ePZ3TxNsasv4-IBG%2520logo.png"
+                            alt="Logo Igreja Batista da Graça" />
+                    </div>
+
+                    <h1 class="title">Igreja Batista da Graça</h1>
+
+                    <div class="schedule">
+                        <div class="row"><strong>EBD:</strong> <span>Domingo às 9h</span></div>
+                        <div class="row"><strong>Cultos:</strong> <span>Domingo às 10h e 18h</span></div>
+                        <div class="row"><strong>Reunião de Oração:</strong> <span>Quartas às 19h30</span></div>
+                    </div>
+                </div>
+
+                <div class="foot">Página de links (HTML puro)</div>
+            </aside>
+
+            <main class="grid" id="grid" aria-label="Links"></main>
+        </div>
+    </div>
+
+    <script>
+        const CARDS = [
+            {
+                title: "Queremos orar por você!",
+                host: "batistadagraca.com.br",
+                icon: "https://www.gstatic.com/images/branding/product/2x/forms_48dp.png",
+                preview: "https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1200&q=60",
+                span: "2c",
+                url: "https://batistadagraca.com.br/oracao"
+            },
+            {
+                type: "photo",
+                span: "2r 2c",
+                preview: "https://storage.googleapis.com/creatorspace-public/users%2Fcm0r1pmyk01bqwn01ts5a93gx%2F26mbMuqduexN3WzV-_DSC7129.jpg",
+                url: "https://instagram.com/igrejabatistadagracasjc"
+            },
+            {
+                title: "Instagram",
+                host: "instagram.com",
+                icon: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png",
+                pill: "Follow · 3.7K",
+                tint: "tint-instagram",
+                url: "https://instagram.com/igrejabatistadagracasjc"
+            },
+            {
+                title: "Sermões",
+                host: "youtube.com",
+                icon: "https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_(2017).svg",
+                pill: "Subscribe · 2.4K",
+                tint: "tint-youtube",
+                url: "https://www.youtube.com/IgrejaBatistadaGra%C3%A7aSJCampos"
+            },
+            {
+                title: "Quer se tornar membro da IBG? Princípios da Graça (classe de membresia)",
+                host: "chat.whatsapp.com",
+                icon: "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg",
+                preview: "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg",
+                span: "2c 2r",
+                tint: "tint-whatsapp",
+                url: "https://chat.whatsapp.com/GjX14WMj89l1Ohnm9Vf6uj",
+                special: "whatsapp"
+            },
+            {
+                type: "pix",
+                span: "2c",
+                pix: {
+                    title: "Ofertas / PIX:",
+                    cnpj: "65.058.430/0001-00",
+                    banco: "Bradesco",
+                    ag: "738",
+                    cc: "6010-0"
+                }
+            },
+            {
+                title: "YouVersion",
+                host: "bible.com",
+                icon: "https://upload.wikimedia.org/wikipedia/commons/3/3c/YouVersion_Bible_App_Icon.png",
+                url: "https://www.bible.com/organizations/efcf8a05-d04a-4a48-922b-66414b2ffdfb"
+            },
+            {
+                title: "Podcast no Spotify",
+                host: "open.spotify.com",
+                icon: "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg",
+                pill: "Play",
+                tint: "tint-spotify",
+                url: "https://open.spotify.com/show/5e7E1F7yma8OXRDZGzl1Tw?si=bb5b85c22fe94871"
+            },
+            {
+                title: "Ação Social - Doe itens da Cesta Básica",
+                host: "cesta.ibg.sjc.br",
+                icon: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Heart_coraz%C3%B3n.svg",
+                preview: "https://images.unsplash.com/photo-1609132718484-cc90df3417f8?auto=format&fit=crop&w=1200&q=60",
+                url: "https://cesta.ibg.sjc.br"
+            },
+            {
+                title: "Medium",
+                host: "medium.com",
+                icon: "https://upload.wikimedia.org/wikipedia/commons/e/ec/Medium_logo_Monogram.svg",
+                url: "https://ibg-sjc.medium.com/"
+            },
+            {
+                title: "Facebook IBG",
+                host: "facebook.com",
+                icon: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
+                url: "https://www.facebook.com/ibgsjc"
+            }
+        ];
+
+        const grid = document.getElementById("grid");
+
+        function getSpanClasses(span) {
+            const spans = [];
+            if (span?.includes("2c")) spans.push("span-2c");
+            if (span?.includes("2r")) spans.push("span-2r");
+            if (span?.includes("3c")) spans.push("span-3c");
+            if (span?.includes("4c")) spans.push("span-4c");
+            return spans.join(" ");
+        }
+
+        CARDS.forEach(card => {
+            // FOTO (agora aplica 2c e 2r de verdade)
+            if (card.type === "photo") {
+                const a = document.createElement("a");
+                a.className = `card photoFill ${getSpanClasses(card.span)}`.trim();
+                if (card.url) { a.href = card.url; a.target = "_blank"; a.rel = "noopener noreferrer"; }
+                a.innerHTML = `
+          <div class="preview">
+            <img src="${card.preview}" alt="Foto" loading="lazy">
+          </div>
+        `;
+                grid.appendChild(a);
+                return;
+            }
+
+            // PIX
+            if (card.type === "pix") {
+                const div = document.createElement("div");
+                div.className = `card ${getSpanClasses(card.span)}`.trim();
+                div.innerHTML = `
+          <div class="pixBox">
+            <div class="pixTitle">${escapeHtml(card.pix.title)}</div>
+            <div class="pixStrong">CNPJ: <span>${escapeHtml(card.pix.cnpj)}</span></div>
+            <div class="pixStrong">Banco: <span>${escapeHtml(card.pix.banco)}</span></div>
+            <div class="pixStrong">Ag: <span>${escapeHtml(card.pix.ag)}</span> – CC: <span>${escapeHtml(card.pix.cc)}</span></div>
+          </div>
+        `;
+                grid.appendChild(div);
+                return;
+            }
+
+            // NORMAL
+            const a = document.createElement(card.url ? "a" : "div");
+            a.className = `card ${getSpanClasses(card.span)} ${card.tint ? card.tint : ""}`.trim();
+
+            if (card.url) {
+                a.href = card.url;
+                a.target = "_blank";
+                a.rel = "noopener noreferrer";
+            }
+
+            const previewHtml = card.preview ? `
+        <div class="preview" style="${card.special === "whatsapp" ? "padding:26px; display:grid; place-items:center;" : ""}">
+          <img
+            src="${card.preview}"
+            alt="Pré-visualização"
+            loading="lazy"
+            style="${card.special === "whatsapp" ? "width:72%; max-width:360px; object-fit:contain;" : ""}"
+          >
+        </div>
+      ` : "";
+
+            const pillHtml = card.pill ? `
+        <div class="ctaRow">
+          <div class="pill">${escapeHtml(card.pill)}</div>
+        </div>
+      ` : "";
+
+            a.innerHTML = `
+        <div class="cardTop">
+          <div class="appIcon" aria-hidden="true">
+            ${card.icon ? `<img src="${card.icon}" alt="" loading="lazy">` : ""}
+          </div>
+          <div class="meta">
+            <div class="name">${escapeHtml(card.title)}</div>
+            <div class="host">${escapeHtml(card.host || "")}</div>
+          </div>
+        </div>
+
+        <div class="cardBody">
+          ${previewHtml}
+          ${pillHtml}
+        </div>
+      `;
+
+            grid.appendChild(a);
+        });
+
+        function escapeHtml(str) {
+            return String(str ?? "")
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+    </script>
+</body>
+
+</html>
