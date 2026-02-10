@@ -398,6 +398,55 @@
             gap: 12px;
         }
 
+        .pixRow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .copyBtn {
+            border: 1px solid var(--border);
+            background: #fff;
+            color: var(--text);
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            flex: 0 0 auto;
+            transition: transform .12s ease, box-shadow .12s ease;
+        }
+
+        .copyBtn:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .copyBtn:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, .18), var(--shadow);
+        }
+
+        .copyBtn svg {
+            width: 16px;
+            height: 16px;
+            display: block;
+        }
+
+        .copyBtn .icon-check {
+            display: none;
+        }
+
+        .copyBtn.is-copied .icon-copy {
+            display: none;
+        }
+
+        .copyBtn.is-copied .icon-check {
+            display: block;
+        }
+
         .pixBox .pixTitle {
             font-weight: 500;
             color: var(--text);
@@ -489,7 +538,6 @@
                 title: "Instagram",
                 host: "instagram.com",
                 icon: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png",
-                pill: "Follow · 3.7K",
                 tint: "tint-instagram",
                 url: "https://instagram.com/igrejabatistadagracasjc"
             },
@@ -497,7 +545,6 @@
                 title: "Sermões",
                 host: "youtube.com",
                 icon: "https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_(2017).svg",
-                pill: "Subscribe · 2.4K",
                 tint: "tint-youtube",
                 url: "https://www.youtube.com/IgrejaBatistadaGra%C3%A7aSJCampos"
             },
@@ -505,9 +552,8 @@
                 title: "Quer se tornar membro da IBG? Princípios da Graça (classe de membresia)",
                 host: "chat.whatsapp.com",
                 icon: "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg",
-                preview: "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg",
+                preview: "img/membresia.png",
                 span: "2c 2r",
-                tint: "tint-whatsapp",
                 url: "https://chat.whatsapp.com/GjX14WMj89l1Ohnm9Vf6uj",
                 special: "whatsapp"
             },
@@ -590,7 +636,17 @@
                 div.innerHTML = `
           <div class="pixBox">
             <div class="pixTitle">${escapeHtml(card.pix.title)}</div>
-            <div class="pixStrong">CNPJ: <span>${escapeHtml(card.pix.cnpj)}</span></div>
+            <div class="pixStrong pixRow">
+              <span>CNPJ: <span>${escapeHtml(card.pix.cnpj)}</span></span>
+              <button class="copyBtn" type="button" aria-label="Copiar CNPJ" data-copy-text="${escapeHtml(card.pix.cnpj)}">
+                <svg class="icon-copy" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path fill="currentColor" d="M8 8a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2V8zm2-4a2 2 0 0 0-2 2v1h1v9a3 3 0 0 0 3 3h7v1a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3z"/>
+                </svg>
+                <svg class="icon-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path fill="currentColor" d="M9.55 16.2 5.8 12.45l1.4-1.4 2.35 2.35 6.05-6.05 1.4 1.4-7.45 7.45z"/>
+                </svg>
+              </button>
+            </div>
             <div class="pixStrong">Banco: <span>${escapeHtml(card.pix.banco)}</span></div>
             <div class="pixStrong">Ag: <span>${escapeHtml(card.pix.ag)}</span> – CC: <span>${escapeHtml(card.pix.cc)}</span></div>
           </div>
@@ -657,6 +713,43 @@
       `;
 
             grid.appendChild(a);
+        });
+
+        grid.addEventListener("click", async (event) => {
+            const btn = event.target.closest(".copyBtn");
+            if (!btn) return;
+
+            const text = btn.getAttribute("data-copy-text");
+            if (!text) return;
+
+            event.preventDefault();
+
+            try {
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(text);
+                } else {
+                    const ta = document.createElement("textarea");
+                    ta.value = text;
+                    ta.style.position = "fixed";
+                    ta.style.opacity = "0";
+                    ta.style.left = "-9999px";
+                    document.body.appendChild(ta);
+                    ta.focus();
+                    ta.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(ta);
+                }
+
+                btn.classList.add("is-copied");
+                btn.setAttribute("aria-label", "Copiado");
+                if (btn._copyTimeout) clearTimeout(btn._copyTimeout);
+                btn._copyTimeout = setTimeout(() => {
+                    btn.classList.remove("is-copied");
+                    btn.setAttribute("aria-label", "Copiar CNPJ");
+                }, 2000);
+            } catch {
+                // silencioso: sem bloqueio visual caso o navegador negue
+            }
         });
 
         function escapeHtml(str) {
