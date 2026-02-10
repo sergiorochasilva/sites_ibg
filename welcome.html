@@ -107,7 +107,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            font-size: 18px;
+            font-size: 21px;
             color: var(--muted);
         }
 
@@ -242,11 +242,12 @@
 
         .meta .name {
             font-weight: 700;
-            font-size: 15px;
+            font-size: 18px;
             line-height: 1.2;
-            white-space: nowrap;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
             overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .meta .host {
@@ -585,7 +586,6 @@
             {
                 title: "Ação Social - Doe itens da Cesta Básica",
                 host: "cesta.ibg.sjc.br",
-                icon: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Heart_coraz%C3%B3n.svg",
                 preview: "img/cesta.png",
                 url: "https://cesta.ibg.sjc.br"
             },
