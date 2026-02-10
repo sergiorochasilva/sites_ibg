@@ -401,8 +401,8 @@
         .pixRow {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 12px;
+            justify-content: flex-start;
+            gap: 8px;
         }
 
         .copyBtn {
@@ -639,8 +639,10 @@
             <div class="pixStrong pixRow">
               <span>CNPJ: <span>${escapeHtml(card.pix.cnpj)}</span></span>
               <button class="copyBtn" type="button" aria-label="Copiar CNPJ" data-copy-text="${escapeHtml(card.pix.cnpj)}">
-                <svg class="icon-copy" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  <path fill="currentColor" d="M8 8a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2V8zm2-4a2 2 0 0 0-2 2v1h1v9a3 3 0 0 0 3 3h7v1a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3z"/>
+                <svg class="icon-copy" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="7" y="3" width="12" height="14" rx="2"></rect>
+                  <rect x="3" y="7" width="12" height="14" rx="2"></rect>
+                  <path d="M6.5 11h6.5M6.5 14h6.5M6.5 17h4.5"></path>
                 </svg>
                 <svg class="icon-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                   <path fill="currentColor" d="M9.55 16.2 5.8 12.45l1.4-1.4 2.35 2.35 6.05-6.05 1.4 1.4-7.45 7.45z"/>
